@@ -10,7 +10,7 @@ def binarySearch(searchList, searchStr) :
             return 0, first
         half = (last - first) // 2 + first
         if searchList[half] == searchStr :
-            return 1, -1
+            return 1, half
         elif searchList[half] < searchStr :
             first = half + 1
         else :
@@ -66,14 +66,14 @@ class Bfs:
 
 class Ids:
 
-    def searchNext(self, currentPuzzle, openList, visitList, beforePosition, maxLength) :
+    def searchNext(self, currentPuzzle, openList, visitList, visitLengthList, beforePosition, maxLength) :
         length = currentPuzzle[1];
 
         if currentPuzzle[0] == answer :
-            return 1, [], [], [];
+            return 1, -1, [], [], [];
         index = currentPuzzle[0].index('0')
         if(length >= maxLength) :
-            return 0, index, openList, visitList
+            return 0, index, openList, visitList, visitLengthList
 
         for i in direct[index] :
             nextIndex =  i + index
@@ -86,5 +86,9 @@ class Ids:
                 if isExist == 0 :
                     openList.append((newNode, length + 1))
                     visitList.insert(insertIndex, newNode)
+                    visitLengthList.insert(insertIndex, length + 1)
+                elif length + 1 < visitLengthList[insertIndex] :
+                    visitLengthList[insertIndex] = length + 1
+                    openList.append((newNode, length + 1))
 
-        return 0, index, openList, visitList
+        return 0, index, openList, visitList, visitLengthList

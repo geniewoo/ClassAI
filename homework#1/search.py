@@ -1,4 +1,4 @@
-import algo;
+import searchAlgo;
 print("""
 choose algorithmType
 1 : DFS
@@ -7,14 +7,15 @@ choose algorithmType
 """)
 openListSize = 0
 algorithmType = int(input())
+print("input puzzle")
 firstPuzzle = input()
 beforePosition = 0;
 if algorithmType == 1 :
-    searchAlgorithm = algo.Dfs()
+    searchAlgorithm = searchAlgo.Dfs()
 elif algorithmType == 2 :
-    searchAlgorithm = algo.Bfs()
+    searchAlgorithm = searchAlgo.Bfs()
 else :
-    searchAlgorithm = algo.Ids()
+    searchAlgorithm = searchAlgo.Ids()
 visit = 1
 if algorithmType != 3 :
     success, beforePosition, openList, visitList = searchAlgorithm.searchNext((firstPuzzle, 0), [], [firstPuzzle], -1);
@@ -44,7 +45,7 @@ else :
     isFin = 0;
     maxLength = 1;
     while 1 :
-        success, beforePosition, openList, visitList = searchAlgorithm.searchNext((firstPuzzle, 0), [], [firstPuzzle], -1, maxLength);
+        success, beforePosition, openList, visitList, visitLengthList = searchAlgorithm.searchNext((firstPuzzle, 0), [], [firstPuzzle], [0], -1, maxLength);
         if success :
             print('fin')
         else :
@@ -56,7 +57,7 @@ else :
                 break;
 
             currentPuzzle = openList.pop()
-            success, beforePosition, openList, visitList = searchAlgorithm.searchNext(currentPuzzle, openList, visitList, beforePosition, maxLength)
+            success, beforePosition, openList, visitList, visitLengthList = searchAlgorithm.searchNext(currentPuzzle, openList, visitList, visitLengthList, beforePosition, maxLength)
             if openListSize < len(openList) :
                 openListSize = len(openList)
             if success :
