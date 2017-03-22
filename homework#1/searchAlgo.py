@@ -1,6 +1,5 @@
-import bisect
-
-direct = [(1, 3), (1, 3, -1), (3, -1), (-3, 1, 3), (-3, 1, 3, -1), (-3, 3, -1), (-3, 1), (-3, 1, -1), (-3, -1)];
+#direct = [(1, 3), (1, 3, -1), (3, -1), (-3, 1, 3), (-3, 1, 3, -1), (-3, 3, -1), (-3, 1), (-3, 1, -1), (-3, -1)];
+direct = [(3, 1), (-1, 3, 1), (-1, 3), (-3, 3, 1), (-3, -1, 3, 1), (-3, -1, 3), (-3, 1), (-3, -1, 1), (-3, -1)];
 answer = "123456780"
 def binarySearch(searchList, searchStr) :
     first = 0
@@ -22,7 +21,7 @@ class Dfs:
     def searchNext(self, currentPuzzle, openList, visitList, beforePosition) :
         length = currentPuzzle[1];
         if currentPuzzle[0] == answer :
-            return 1, [], [], [];
+            return 1, -1, [], [];
 
         index = currentPuzzle[0].index('0')
 
@@ -46,7 +45,7 @@ class Bfs:
     def searchNext(self, currentPuzzle, openList, visitList, beforePosition) :
         length = currentPuzzle[1];
         if currentPuzzle[0] == answer :
-            return 1, [], [], [];
+            return 1, -1, [], [];
 
         index = currentPuzzle[0].index('0')
 
@@ -72,7 +71,7 @@ class Ids:
         if currentPuzzle[0] == answer :
             return 1, -1, [], [], [];
         index = currentPuzzle[0].index('0')
-        if(length >= maxLength) :
+        if length >= maxLength :
             return 0, index, openList, visitList, visitLengthList
 
         for i in direct[index] :
